@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h2>Lista de Pokémons</h2>
+        <h2>{{ t('pokedex.pokemonList') }}</h2>
         <ul>
             <li v-for="pokemon in pokemons" :key="pokemon.id">
                 <img :src="pokemon.sprites.front_default" alt="Imagem de {{ pokemon.name }}" />
@@ -16,12 +16,15 @@
 import { ref, onMounted } from 'vue'
 import axios from 'axios'
 import { getPokemonList } from '../services/pokeAPI'
+import {useI18n} from 'vue-i18n'
+
+const { t } = useI18n()
 
 const pokemons = ref<any[]>([])
 const loading = ref(true) 
 const error = ref<string | null>(null) 
 
-// Função para buscar Pokémons
+
 const fetchPokemons = async () => {
     try {
         const data = await getPokemonList(8) 
