@@ -1,10 +1,14 @@
-<script setup lang="ts"></script>
-
 <template>
-  <div>
-    <p>Pokedex</p>
+  <div id="app">
+    <!-- Passar o header -->
+    <router-view />
   </div>
-  <HelloWorld msg="Vite + Vue" />
 </template>
 
-<style scoped></style>
+<script setup lang="ts">
+// import  header from './components/Header.vue'
+</script>
+
+<style>
+</style>
+

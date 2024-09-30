@@ -10,6 +10,7 @@
     "format": "prettier --write ."
   },
   "dependencies": {
+    "axios": "^1.7.7",
     "pokedex": "file:",
     "vue": "^3.4.31"
   },
