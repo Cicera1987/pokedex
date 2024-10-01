@@ -1,11 +1,11 @@
 <template>
     <div>
-        <Pokedex />
+        <PageStructure/>
     </div>
 </template>
 
 <script setup lang="ts">
-import Pokedex from './Pokedex.vue'
+import PageStructure from '../PageStrutucture/Structure.vue'
 </script>
 
 <style scoped>
