@@ -1,4 +1,8 @@
 {
-    "pokedex":"Pokédex",
-    "pokemonList":"Lista de Pokemons"
+    "pokedex": {
+        "pokemonList": "Lista de Pokémon",
+        "title": "Pokédex",
+        "searchPlaceholder": "Buscar Pokémon"
+    },
+    "error": "Erro ao carregar Pokémons"
 }

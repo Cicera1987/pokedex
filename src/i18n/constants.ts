@@ -3,4 +3,4 @@ export const supportedLocales = {
     en: "en",
 } as const;
 
-export const  LocaleNameSpaces = [] as const;
+export type SupportedLocales = keyof typeof supportedLocales;
