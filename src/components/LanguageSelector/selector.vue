@@ -15,21 +15,11 @@
 </template>
 
 <script setup lang="ts">
-
-interface PokedexMessages {
-    pokemonList: string;
-    title: string;
-
-}
-
-interface LocaleMessages {
-    pokedex: PokedexMessages;
-}
 import { supportedLocales } from '../../i18n/constants';
 import { ref} from 'vue';
 import TranslateIcon from '../../assets/icons/translate.vue';
 import { useI18n } from 'vue-i18n';
-
+import { LocaleMessages } from '../../types/locales';
 const { locale, messages } = useI18n<{ 'pt-BR': LocaleMessages; en: LocaleMessages }>();
 const currentLocale = ref<string>(locale.value);
 const changeLocale = () => {
@@ -65,17 +55,12 @@ const changeLocale = () => {
     appearance: none;
 }
 
-.language-select:focus {
-    border-color: #007bff;
-    /* Cor da borda ao focar */
-}
 
 .language-select option {
-    color: black;
+    color:#867C7C;
 }
 
 .language-select option:disabled {
-    color: #999;
-    /* Cor do placeholder */
+    color: #867C7C;
 }</style>
 

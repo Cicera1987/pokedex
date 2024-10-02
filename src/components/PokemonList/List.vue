@@ -8,63 +8,34 @@
                 </div>
             </li>
         </ul>
-        <div class="pagination">
-            <button @click="prevPage" :disabled="currentPage === 1">
-                <ArrowLeft />
-            </button>
-            <div class="pagination-number">{{ currentPage }} de {{ totalPages }}</div>
-            <button @click="nextPage" :disabled="currentPage === totalPages">
-                <ArrowRight />
-            </button>
-        </div>
+        <Pagination :pokemons="props.pokemons" :itemsPerPage="itemsPerPage"
+            @update:paginatedPokemons="updatePaginatedPokemons" />
     </div>
 </template>
 
 <script setup lang="ts">
-import { defineProps, ref, computed } from 'vue';
-import  ArrowLeft from '../../assets/icons/arrowLeft.vue';
-import  ArrowRight from '../../assets/icons/arrowRigth.vue'
+import { defineProps, ref } from 'vue';
+import Pagination from '../Pagination/Pagination.vue';
+import { Pokemon } from '../../types/pokemon';
 
 const props = defineProps<{
-    pokemons: Array<{
-        id: number;
-        name: string;
-        sprites: {
-            front_default: string;
-        };
-    }>;
+    pokemons: Pokemon[];
     loading: boolean;
     error: string | null;
 }>();
 
-const currentPage = ref(1);
 const itemsPerPage = 8;
+const paginatedPokemons = ref<Pokemon[]>([]);
 
-const totalPages = computed(() => {
-    return Math.ceil(props.pokemons.length / itemsPerPage);
-});
-
-const paginatedPokemons = computed(() => {
-    const start = (currentPage.value - 1) * itemsPerPage;
-    return props.pokemons.slice(start, start + itemsPerPage);
-});
-
-const nextPage = () => {
-    if (currentPage.value < totalPages.value) {
-        currentPage.value++;
-    }
+const updatePaginatedPokemons = (newPokemons: Pokemon[]) => {
+    paginatedPokemons.value = newPokemons;
 };
 
-const prevPage = () => {
-    if (currentPage.value > 1) {
-        currentPage.value--;
-    }
-};
+updatePaginatedPokemons(props.pokemons.slice(0, itemsPerPage));
 
 const formatId = (id: number) => {
     return String(id).padStart(3, '0');
 };
-
 </script>
 
 <style scoped>
@@ -95,12 +66,14 @@ ul {
     margin: 5px;
     cursor: pointer;
 }
-p{
+
+p {
     font-size: 14px;
     color: #867C7C;
     padding: 5px;
 }
-span{
+
+span {
     font-size: 18px;
     font-weight: bold;
     color: #867C7C;
@@ -126,31 +99,4 @@ img:hover {
     align-items: center;
     text-align: center;
 }
-
-.pagination {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    margin: 10px 0;
-}
-
-.pagination button {
-    padding: 5px 10px;
-    border: none;
-    border-radius: 5px;
-    background-color: white;
-    cursor: pointer;
-    margin: 0 10px;
-}
-
-.pagination button:disabled {
-    cursor: not-allowed;
-}
-
-.pagination-number {
-    margin-top: 10px;
-    text-align: center;
-    font-size: 18px;
-    font-weight: bold;
-    color: #867C7C;
-}</style>
+</style>
