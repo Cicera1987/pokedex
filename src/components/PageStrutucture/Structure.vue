@@ -3,20 +3,31 @@
         <div class="structure">
             <PokedexIcon />
             <div>
-                <PageTitle :title="'pokedex.title'" />
+                <PageTitle :title="currentTranslation.title" />
             </div>
             <PokedexMenu :items="menuItems">
                 <template #icon>
                     <MenuIcon />
                 </template>
-
                 <template #language-selector>
                     <LanguageSelector :currentLocale="currentLocale" :supportedLocales="localesArray"
                         :changeLocale="changeLocale" />
                 </template>
             </PokedexMenu>
         </div>
-        <Pokedex />
+        <div>
+            <div class="input-container">
+                <div class="input-wrapper">
+                    <SearchIcon class="search-icon" />
+                     <input 
+                            class="input-search" 
+                            :placeholder="currentTranslation.searchPlaceholder"
+                            v-model="searchQuery"
+                        />
+                </div>
+            </div>
+        </div>
+             <PokemonList :pokemons="pokemons" :filteredPokemons="filteredPokemons"  :loading="loading" :error="error" />
     </div>
 </template>
 
@@ -24,23 +35,35 @@
 import { ref, watch } from 'vue';
 import PageTitle from '../PageTitle/PageTitle.vue';
 import PokedexMenu from '../pokedexMenu/Menu.vue';
-import Pokedex from '../views/Pokedex.vue';
 import PokedexIcon from '../../assets/icons/PokedexIcon.vue';
 import MenuIcon from '../../assets/icons/menuIcon.vue';
 import FavoriteIcon from '../../assets/icons/favorite.vue';
 import darkModeIcon from '../../assets/icons/dark.vue';
-import lightModeIcon from  '../../assets/icons/ligth.vue';
+import lightModeIcon from '../../assets/icons/light.vue';
 import LanguageSelector from '../LanguageSelector/selector.vue';
 import { useTranslations } from '../../hooks/useTranslations';
 import { supportedLocales } from '../../i18n/constants';
+import SearchIcon from '../../assets/icons/search.vue';
+import { DetailedPokemon } from '../../types/endpoints';
+import { onMounted } from 'vue';
+import PokemonList from '../PokemonList/List.vue'
+import { Pokemon } from '../../types/pokemon';
+import { useFilteredPokemons } from '../../hooks/useFilteredPokemons';
+import axios from 'axios';
+import { getPokemonsList, getPokemons } from '../services/pokeAPI';
+const loading = ref(true);
+const error = ref<string | null>(null);
 
-const { changeLocale, currentLocale } = useTranslations();
+const { changeLocale, currentLocale, currentTranslation } = useTranslations();
 const isDarkMode = ref(false);
-const localesArray = Object.keys(supportedLocales) as Array<keyof typeof supportedLocales>
+const localesArray = Object.keys(supportedLocales) as Array<keyof typeof supportedLocales>;
+const pokemons = ref<Pokemon[]>([]);
 
+const { searchQuery, filteredPokemons } = useFilteredPokemons(pokemons.value);
 const toggleTheme = () => {
     isDarkMode.value = !isDarkMode.value;
 };
+
 
 const menuItems = ref([
     {
@@ -59,6 +82,49 @@ watch(isDarkMode, (newValue) => {
     menuItems.value[1].icon = newValue ? lightModeIcon : darkModeIcon;
     menuItems.value[1].label = newValue ? 'Modo Claro' : 'Modo Escuro';
 });
+
+
+const fetchPokemons = async (query: string = '') => {
+    loading.value = true;
+    try {
+        let pokemonsData;
+
+        if (query) {
+            const response = await getPokemons(query);
+            pokemonsData = [response.data]; 
+        } else {
+            const response = await getPokemonsList();
+            pokemonsData = response.data.results || [];
+        }
+        const detailedPokemons = await Promise.all(
+            pokemonsData.map(async (pokemon: DetailedPokemon) => {
+                const details = pokemon.sprites
+                    ? pokemon
+                    : await axios.get(pokemon.url || '').then((res) => res.data);
+
+                return {
+                    id: String(details.id).padStart(3, '0'),
+                    name: details.name,
+                    sprites: details.sprites,
+                };
+            })
+        );
+        pokemons.value = detailedPokemons;
+    } catch (err) {
+        error.value = 'Erro ao buscar pokémons';
+        console.error(err);
+    } finally {
+        loading.value = false;
+    }
+};
+
+watch(searchQuery, (newQuery) => {
+    fetchPokemons(newQuery);
+});
+
+onMounted(() => fetchPokemons('')); 
+
+
 </script>
 
 <style scoped>
@@ -71,5 +137,37 @@ watch(isDarkMode, (newValue) => {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.input-search {
+    display: flex;
+    width: 100%;
+    padding: 8px 8px 8px 40px;
+    border-radius: 20px;
+    background-color: #FFFFFF;
+    outline: none;
+    border: 1px solid #867C7C;
+    box-sizing: border-box;
+    line-height: 1.5;
+}
+
+.input-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.input-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
+.search-icon {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
 }
 </style>

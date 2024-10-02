@@ -1,20 +1,26 @@
-import axios from 'axios'
-
+import axios from 'axios';
 
 const api = axios.create({
-    baseURL: 'https://pokeapi.co/api/v2/'
-})
+    baseURL: 'https://pokeapi.co/api/v2/',
+});
+console.log('api: ', api);
 
-export const getPokemon = async (id: number)  => {
-    const response = await api.get(`pokemon/${id}`)
-    console.log('response: ', response);
-    return response.data
+const getPokemons = async  (query: string) => {
+    const response = await api.get(`pokemon/${query.toLowerCase()}`);
+    return response;
 }
 
-export const getPokemonList = async () => {
-    const response = await api.get('pokemon?limit=100'); 
-    console.log('response: ', response);
-    return response.data;
-};
+
+const getPokemonsList = async () => {
+        const response = await api.get('pokemon?limit=100');
+        return response; 
+}
+
+const getPokemonById = (id: string) => {
+    const response = api.get(`pokemon/${id}`);
+    return response;
+}
+
+export { getPokemonsList, getPokemonById, getPokemons };
 
 

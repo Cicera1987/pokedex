@@ -22,7 +22,7 @@ export function useTranslations() {
             return {
                 pokemonList: langMessages[locale.value]?.pokedex.pokemonList,
                 title: langMessages[locale.value]?.pokedex.title,
-                seachPlaceholder: langMessages[locale.value]?.pokedex.seachPlaceholder
+                searchPlaceholder: langMessages[locale.value]?.pokedex.searchPlaceholder
             };
         }
         return {

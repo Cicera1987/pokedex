@@ -2,7 +2,7 @@
     "pokedex": {
         "pokemonList": "Pokémon List",
         "title": "Pokédex",
-        "seachPlaceholder": "Search Pokémon"
+        "searchPlaceholder": "Search Pokémon"
     },
     "error": "Error loading Pokémon"
 }

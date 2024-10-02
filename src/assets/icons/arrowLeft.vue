@@ -3,3 +3,5 @@
     <path d="M17.1081 29.6875L0 14.8438L17.1081 0L21.1 3.46354L7.98378 14.8438L21.1 26.224L17.1081 29.6875Z" fill="#867C7C"/>
     </svg>   
 </template>
+<script setup lang="ts">
+</script>

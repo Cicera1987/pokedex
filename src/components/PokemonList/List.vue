@@ -2,21 +2,26 @@
     <div class="pokemon-list">
         <ul>
             <li v-for="pokemon in paginatedPokemons" :key="pokemon.id" class="pokemon-item">
-                <img :src="pokemon.sprites.front_default" alt="Imagem de {{ pokemon.name }}" />
+               <img v-if="pokemon.sprites && pokemon.sprites.front_default" :src="pokemon.sprites.front_default" alt="Imagem de {{ pokemon.name }}" />
                 <div class="pokemon-info">
                     <p>#{{ formatId(pokemon.id) }}<span>{{ pokemon.name }}</span></p>
                 </div>
             </li>
         </ul>
         <Pagination :pokemons="props.pokemons" :itemsPerPage="itemsPerPage"
-            @update:paginatedPokemons="updatePaginatedPokemons" />
+            @update:paginatedPokemons="updatePaginatedPokemons" :filteredPokemons="filteredPokemons" />
     </div>
 </template>
 
 <script setup lang="ts">
-import { defineProps, ref } from 'vue';
+import { defineProps, ref, watch } from 'vue';
 import Pagination from '../Pagination/Pagination.vue';
 import { Pokemon } from '../../types/pokemon';
+import { useFilteredPokemons } from '../../hooks/useFilteredPokemons'
+
+const pokemons = ref<Pokemon[]>([]);
+
+const {filteredPokemons }= useFilteredPokemons(pokemons.value)
 
 const props = defineProps<{
     pokemons: Pokemon[];
@@ -31,7 +36,11 @@ const updatePaginatedPokemons = (newPokemons: Pokemon[]) => {
     paginatedPokemons.value = newPokemons;
 };
 
-updatePaginatedPokemons(props.pokemons.slice(0, itemsPerPage));
+watch(() => filteredPokemons, (newFilteredPokemons) => {
+    updatePaginatedPokemons(newFilteredPokemons.value.slice(0, itemsPerPage));
+});
+
+
 
 const formatId = (id: number) => {
     return String(id).padStart(3, '0');
@@ -84,7 +93,6 @@ img {
     width: 100px;
     height: 100px;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     transition: transform 0.2s, box-shadow 0.2s;
 }
 
