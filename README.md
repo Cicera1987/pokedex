@@ -10,7 +10,7 @@ Este projeto foi desenvolvido como parte de um teste técnico com o objetivo de 
 - **Vite** como bundler
 - **TypeScript** para tipagem estática
 - **PokeAPI** para o consumo de dados dos Pokémon
-- **SASS** para a estilização
+- **CSS** para a estilização
 - **Axios** para realizar requisições HTTP
 - **i18n** para internacionalização
 - **Prettier** e **ESLint** para garantir o formato e qualidade do código
@@ -31,7 +31,7 @@ Este projeto foi desenvolvido como parte de um teste técnico com o objetivo de 
 
 ### 3. Busca e Filtro
 
-- Implementada busca por **nome** ou **número** de Pokémon, com atualização em tempo real.
+- Implementada busca por **nome** ou **número** de Pokémon.
 
 ### 4. Responsividade
 
