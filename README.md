@@ -87,6 +87,12 @@ Este projeto foi desenvolvido como parte de um teste técnico com o objetivo de 
 ├── package.json
 └── README.md
 ```
+## Variáveis de Ambiente
+
+Para a configuração do projeto, você deve criar um arquivo `.env` na raiz do projeto com as seguintes variáveis:
+
+VITE_API_URL=https://pokeapi.co/api/v2/
+VITE_OTHER_VARIABLE=some_value
 
 ## Melhorias Futuras
 
