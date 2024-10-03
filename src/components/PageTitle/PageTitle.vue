@@ -1,8 +1,6 @@
 <template>
     <div class="page-title">
-        <h1 class="title">{{ currentTranslation.title }}</h1>
-    </div>
-    <div>
+        <h1 class="title">{{ currentTranslation?.title || 'Default Title' }}</h1>
     </div>
 </template>
 

@@ -17,7 +17,7 @@ import ArrowRight from '../../assets/icons/arrowRigth.vue';
 import { Pokemon } from '../../types/pokemon';
 
 const props = defineProps<{
-    pokemons: Pokemon[];  // Aqui você passará os pokémons filtrados
+    pokemons: Pokemon[];
     itemsPerPage: number;
 }>();
 
@@ -37,7 +37,11 @@ const paginatedPokemons = computed(() => {
 });
 
 watch(paginatedPokemons, (newVal) => {
-    emits('update:paginatedPokemons', newVal);  // Atualiza os pokémons paginados
+    emits('update:paginatedPokemons', newVal);
+});
+
+watch(() => props.pokemons, () => {
+    currentPage.value = 1;
 });
 
 const nextPage = () => {
@@ -52,6 +56,7 @@ const prevPage = () => {
     }
 };
 </script>
+
 
 
 <style scoped>

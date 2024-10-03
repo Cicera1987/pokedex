@@ -1,7 +1,7 @@
 <template>
     <div class="pokemon-list">
         <ul>
-            <li v-for="pokemon in paginatedPokemons" :key="pokemon.id" class="pokemon-item">
+            <li v-for="pokemon in paginatedPokemons" :key="pokemon.id" @click="openDetails(pokemon)" class="pokemon-item">
                <img v-if="pokemon.sprites && pokemon.sprites.front_default" :src="pokemon.sprites.front_default" alt="Imagem de {{ pokemon.name }}" />
                 <div class="pokemon-info">
                     <p>#{{ formatId(pokemon.id) }}<span>{{ pokemon.name }}</span></p>
@@ -10,6 +10,16 @@
         </ul>
         <Pagination :pokemons="props.pokemons" :itemsPerPage="itemsPerPage"
             @update:paginatedPokemons="updatePaginatedPokemons" :filteredPokemons="filteredPokemons" />
+
+            <div>
+            <PokemonDetails v-if="isModalVisible" 
+                :show="isModalVisible"
+                :name="selectedPokemon?.name ?? ''"
+                :id="selectedPokemon?.id ?? 0"
+                :sprites="selectedPokemon?.sprites ?? { front_default: '' }"
+                @close="closeModal"
+                />
+            </div>
     </div>
 </template>
 
@@ -18,6 +28,7 @@ import { defineProps, ref, watch } from 'vue';
 import Pagination from '../Pagination/Pagination.vue';
 import { Pokemon } from '../../types/pokemon';
 import { useFilteredPokemons } from '../../hooks/useFilteredPokemons'
+import PokemonDetails from '../ModalDetails/PokemonDetails.vue';
 
 const pokemons = ref<Pokemon[]>([]);
 
@@ -32,6 +43,19 @@ const props = defineProps<{
 const itemsPerPage = 8;
 const paginatedPokemons = ref<Pokemon[]>([]);
 
+
+const selectedPokemon = ref<Pokemon | null>(null);
+const isModalVisible = ref(false);
+
+const openDetails = (pokemon: Pokemon) => {
+    selectedPokemon.value = pokemon;
+    isModalVisible.value = true;
+};
+
+const closeModal = () => {
+    isModalVisible.value = false;
+}
+
 const updatePaginatedPokemons = (newPokemons: Pokemon[]) => {
     paginatedPokemons.value = newPokemons;
 };
@@ -40,11 +64,10 @@ watch(() => filteredPokemons, (newFilteredPokemons) => {
     updatePaginatedPokemons(newFilteredPokemons.value.slice(0, itemsPerPage));
 });
 
-
-
 const formatId = (id: number) => {
     return String(id).padStart(3, '0');
 };
+
 </script>
 
 <style scoped>
