@@ -58,7 +58,7 @@ import PokemonList from '../PokemonList/List.vue'
 import { Pokemon } from '../../types/pokemon'
 import { useFilteredPokemons } from '../../hooks/useFilteredPokemons'
 import axios from 'axios'
-import { getPokemonsList, getPokemons } from '../services/pokeAPI'
+import { getPokemonList, getPokemons } from '../services/pokeAPI'
 const loading = ref(true)
 const error = ref<string | null>(null)
 
@@ -101,7 +101,7 @@ const fetchPokemons = async (query: string = '') => {
       const response = await getPokemons(query)
       pokemonsData = [response.data]
     } else {
-      const response = await getPokemonsList()
+      const response = await getPokemonList()
       pokemonsData = response.data.results || []
     }
     const detailedPokemons = await Promise.all(

@@ -9,7 +9,7 @@ const getPokemons = async (query: string) => {
   return response
 }
 
-const getPokemonsList = async () => {
+const getPokemonList = async () => {
   const response = await api.get('pokemon?limit=100')
   return response
 }
@@ -52,7 +52,7 @@ const extractEvolutions = (chain: any) => {
 }
 
 export {
-  getPokemonsList,
+  getPokemonList,
   getPokemonById,
   getPokemons,
   getSpeciesById,

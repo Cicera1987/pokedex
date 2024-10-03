@@ -12,3 +12,6 @@ export interface DetailedPokemon {
   }
   url: string
 }
+export interface PokemonResponse {
+  results: DetailedPokemon[];
+}
