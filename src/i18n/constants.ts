@@ -1,6 +1,6 @@
 export const supportedLocales = {
-    ptBR: "Português(Brasil)",
-    en: "English",
-} as const;
+  ptBR: 'Português(Brasil)',
+  en: 'English',
+} as const
 
-export type SupportedLocales = keyof typeof supportedLocales;
+export type SupportedLocales = keyof typeof supportedLocales

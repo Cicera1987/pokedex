@@ -1,9 +1,8 @@
 export interface PokedexMessages {
-    pokemonList: string;
-    title: string;
-
+  pokemonList: string
+  title: string
 }
 
 export interface LocaleMessages {
-    pokedex: PokedexMessages;
+  pokedex: PokedexMessages
 }

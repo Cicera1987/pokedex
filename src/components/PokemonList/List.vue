@@ -1,133 +1,152 @@
 <template>
-    <div class="pokemon-list">
-        <ul>
-            <li v-for="pokemon in paginatedPokemons" :key="pokemon.id" @click="openDetails(pokemon)" class="pokemon-item">
-               <img v-if="pokemon.sprites && pokemon.sprites.front_default" :src="pokemon.sprites.front_default" alt="Imagem de {{ pokemon.name }}" />
-                <div class="pokemon-info">
-                    <p>#{{ formatId(pokemon.id) }}<span>{{ pokemon.name }}</span></p>
-                </div>
-            </li>
-        </ul>
-        <Pagination :pokemons="props.pokemons" :itemsPerPage="itemsPerPage"
-            @update:paginatedPokemons="updatePaginatedPokemons" :filteredPokemons="filteredPokemons" />
+  <div class="pokemon-list">
+    <ul>
+      <li
+        v-for="pokemon in paginatedPokemons"
+        :key="pokemon.id"
+        @click="openDetails(pokemon)"
+        class="pokemon-item"
+      >
+        <img
+          v-if="pokemon.sprites && pokemon.sprites.front_default"
+          :src="pokemon.sprites.front_default"
+          alt="Imagem de {{ pokemon.name }}"
+        />
+        <div class="pokemon-info">
+          <p>
+            #{{ formatId(pokemon.id) }}<span>{{ pokemon.name }}</span>
+          </p>
+        </div>
+      </li>
+    </ul>
+    <Pagination
+      :pokemons="props.pokemons"
+      :itemsPerPage="itemsPerPage"
+      @update:paginatedPokemons="updatePaginatedPokemons"
+      :filteredPokemons="filteredPokemons"
+    />
 
-            <div>
-            <PokemonDetails v-if="isModalVisible" 
-                :show="isModalVisible"
-                :name="selectedPokemon?.name ?? ''"
-                :id="selectedPokemon?.id ?? 0"
-                :sprites="selectedPokemon?.sprites ?? { front_default: '' }"
-                @close="closeModal"
-                />
-            </div>
+    <div>
+      <PokemonDetails
+        v-if="isModalVisible"
+        :show="isModalVisible"
+        :name="selectedPokemon?.name ?? ''"
+        :id="selectedPokemon?.id ?? 0"
+        :sprites="selectedPokemon?.sprites ?? { front_default: '' }"
+        @close="closeModal"
+      />
     </div>
+  </div>
 </template>
 
 <script setup lang="ts">
-import { defineProps, ref, watch } from 'vue';
-import Pagination from '../Pagination/Pagination.vue';
-import { Pokemon } from '../../types/pokemon';
+import { defineProps, ref, watch } from 'vue'
+import Pagination from '../Pagination/Pagination.vue'
+import { Pokemon } from '../../types/pokemon'
 import { useFilteredPokemons } from '../../hooks/useFilteredPokemons'
-import PokemonDetails from '../ModalDetails/PokemonDetails.vue';
+import PokemonDetails from '../ModalDetails/PokemonDetails.vue'
 
-const pokemons = ref<Pokemon[]>([]);
+const pokemons = ref<Pokemon[]>([])
 
-const {filteredPokemons }= useFilteredPokemons(pokemons.value)
+const { filteredPokemons } = useFilteredPokemons(pokemons.value)
 
 const props = defineProps<{
-    pokemons: Pokemon[];
-    loading: boolean;
-    error: string | null;
-}>();
+  pokemons: Pokemon[]
+  loading: boolean
+  error: string | null
+}>()
 
-const itemsPerPage = 8;
-const paginatedPokemons = ref<Pokemon[]>([]);
+const itemsPerPage = 8
+const paginatedPokemons = ref<Pokemon[]>([])
 
-
-const selectedPokemon = ref<Pokemon | null>(null);
-const isModalVisible = ref(false);
+const selectedPokemon = ref<Pokemon | null>(null)
+const isModalVisible = ref(false)
 
 const openDetails = (pokemon: Pokemon) => {
-    selectedPokemon.value = pokemon;
-    isModalVisible.value = true;
-};
+  selectedPokemon.value = pokemon
+  isModalVisible.value = true
+}
 
 const closeModal = () => {
-    isModalVisible.value = false;
+  isModalVisible.value = false
 }
 
 const updatePaginatedPokemons = (newPokemons: Pokemon[]) => {
-    paginatedPokemons.value = newPokemons;
-};
+  paginatedPokemons.value = newPokemons
+}
 
-watch(() => filteredPokemons, (newFilteredPokemons) => {
-    updatePaginatedPokemons(newFilteredPokemons.value.slice(0, itemsPerPage));
-});
+watch(
+  () => filteredPokemons,
+  (newFilteredPokemons) => {
+    updatePaginatedPokemons(newFilteredPokemons.value.slice(0, itemsPerPage))
+  },
+)
 
 const formatId = (id: number) => {
-    return String(id).padStart(3, '0');
-};
-
+  return String(id).padStart(3, '0')
+}
 </script>
 
 <style scoped>
 .pokemon-list {
-    display: flex;
-    flex-direction: column;
-    background-color: white;
-    padding: 10px;
-    border-radius: 20px;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  padding: 10px;
+  border-radius: 20px;
+  align-items: center;
 }
 
 ul {
-    list-style-type: none;
-    padding: 0;
-    display: flex;
-    flex-wrap: wrap;
-    max-width: 400px;
-    justify-content: center;
+  list-style-type: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 400px;
+  justify-content: center;
 }
 
 .pokemon-item {
-    padding: 3px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 150px;
-    margin: 5px;
-    cursor: pointer;
+  padding: 3px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 150px;
+  margin: 5px;
+  cursor: pointer;
 }
 
 p {
-    font-size: 14px;
-    color: #867C7C;
-    padding: 5px;
+  font-size: 14px;
+  color: #867c7c;
+  padding: 5px;
 }
 
 span {
-    font-size: 18px;
-    font-weight: bold;
-    color: #867C7C;
-    padding: 5px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #867c7c;
+  padding: 5px;
 }
 
 img {
-    width: 100px;
-    height: 100px;
-    border-radius: 10px;
-    transition: transform 0.2s, box-shadow 0.2s;
+  width: 100px;
+  height: 100px;
+  border-radius: 10px;
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
 }
 
 img:hover {
-    transform: scale(1.1);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+  transform: scale(1.1);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
 }
 
 .pokemon-info {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 </style>

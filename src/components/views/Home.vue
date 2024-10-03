@@ -1,7 +1,7 @@
 <template>
-    <div>
-        <PageStructure/>
-    </div>
+  <div>
+    <PageStructure />
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -10,6 +10,6 @@ import PageStructure from '../PageStrutucture/Structure.vue'
 
 <style scoped>
 h1 {
-    text-align: center;
+  text-align: center;
 }
 </style>

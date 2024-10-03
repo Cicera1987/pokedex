@@ -9,6 +9,4 @@
 // import  header from './components/Header.vue'
 </script>
 
-<style>
-</style>
-
+<style></style>
