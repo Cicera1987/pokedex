@@ -97,7 +97,7 @@ Este projeto foi desenvolvido como parte de um teste técnico com o objetivo de 
 
 ## Deploy
 
-O deploy da aplicação está disponível no [Vercel/Netlify](#).
+O deploy da aplicação está disponível no [Netlify](https://pokedchallenge.netlify.app/).
 
 ## Considerações Finais
 
