@@ -90,36 +90,33 @@ const formatId = (id: number) => {
 <style scoped>
 .pokemon-list {
   display: flex;
+  min-height: 100vh;
   flex-direction: column;
   background-color: white;
-  padding: 10px;
   border-radius: 20px;
   align-items: center;
 }
 
 ul {
-  list-style-type: none;
-  padding: 0;
   display: flex;
   flex-wrap: wrap;
   max-width: 400px;
+  height: auto;
   justify-content: center;
+  flex-grow: 1;
 }
 
 .pokemon-item {
-  padding: 3px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 150px;
-  margin: 5px;
+  width: 140px;
   cursor: pointer;
 }
 
 p {
   font-size: 14px;
   color: #867c7c;
-  padding: 5px;
 }
 
 span {
@@ -130,8 +127,6 @@ span {
 }
 
 img {
-  width: 100px;
-  height: 100px;
   border-radius: 10px;
   transition:
     transform 0.2s,

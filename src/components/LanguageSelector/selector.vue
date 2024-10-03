@@ -51,25 +51,40 @@ const changeLocale = () => {
 
 .item-icon {
   position: absolute;
-  left: 5px;
+  left: 8px;
   pointer-events: none;
 }
 
 .language-select {
   flex: 1;
-  padding: 5px 40px 5px 30px;
+  padding: 0.5rem 2.5rem 0.5rem 2rem;
   outline: none;
-  border: none;
+  border: 1px solid #CCCCCC;
   background-color: white;
   cursor: pointer;
   appearance: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  color: #333333;
+  font-family: 'Roboto', sans-serif;
 }
 
+
 .language-select option {
-  color: #867c7c;
+  color: #333333;
 }
 
 .language-select option:disabled {
-  color: #867c7c;
+  color: #BBBBBB;
 }
-</style>
+
+@media (max-width: 768px) {
+  .select-container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .language-select {
+    padding: 0.5rem;
+  }
+}</style>

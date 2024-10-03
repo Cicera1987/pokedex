@@ -62,7 +62,7 @@ const handleItemClick = (item: MenuItem) => {
 .menu-options {
   min-width: 150px;
   position: absolute;
-  z-index: 1000;
+  z-index: 1;
   background: white;
   border: 1px solid #ccc;
   border-radius: 8px;
@@ -77,6 +77,8 @@ const handleItemClick = (item: MenuItem) => {
   align-items: center;
   padding: 5px;
   gap: 10px;
+  color: #333333;
+  font-family: 'Roboto', sans-serif;
   cursor: pointer;
 }
 

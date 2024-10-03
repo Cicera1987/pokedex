@@ -11,7 +11,6 @@ const { currentTranslation } = useTranslations()
 
 <style scoped>
 .page-title {
-  width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -20,9 +19,26 @@ const { currentTranslation } = useTranslations()
 
 .title {
   flex: 1;
-  font-size: 1.5rem;
+  font-size: 2rem;
   font-weight: bold;
   font-family: 'Roboto', sans-serif;
   color: #f2f2f2;
+  word-wrap: break-word;
 }
-</style>
+
+@media (max-width: 768px) {
+  .page-title {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .title {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .title {
+    font-size: 1.25rem;
+  }
+}</style>

@@ -78,9 +78,7 @@ const menuItems = ref([
   {
     icon: FavoriteIcon,
     label: 'Favoritos',
-    onClick: () => {
-      alert('Favoritos clicado!')
-    },
+    onClick: () => {},
   },
   {
     icon: isDarkMode.value ? lightModeIcon : darkModeIcon,
@@ -137,20 +135,23 @@ onMounted(() => fetchPokemons(''))
 
 <style scoped>
 .page-structure {
-  padding: 2rem;
+  padding: 1rem;
+  min-height: 100vh;
   background-color: #d53e28;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
-
 .structure {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
 }
-
 .input-search {
   display: flex;
   width: 100%;
-  padding: 8px 8px 8px 40px;
+  padding: 8px 10px 8px 40px;
   border-radius: 20px;
   background-color: #ffffff;
   outline: none;
@@ -177,5 +178,25 @@ onMounted(() => fetchPokemons(''))
   top: 50%;
   transform: translateY(-50%);
   pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .structure {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .input-search {
+    padding: 8px 10px 8px 40px;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-structure {
+    padding: 0.5rem;
+  }
+
+  .input-search {
+    font-size: 16px; 
+  }
 }
 </style>

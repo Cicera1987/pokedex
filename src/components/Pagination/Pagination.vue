@@ -65,7 +65,8 @@ const prevPage = () => {
   display: flex;
   justify-content: space-between;
   width: 100%;
-  margin: 10px 0;
+  margin: 5px 0;
+   margin-top: auto;
 }
 
 .pagination button {
