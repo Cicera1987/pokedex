@@ -26,7 +26,7 @@ const getSpeciesById = async (id: number) => {
         const response = await api.get(`pokemon-species/${id}`);
         return response.data;
     } catch (error) {
-        console.error('Erro ao buscar dados da espécie:', error);
+        console.error('Error when fetching species data', error);
     }
 };
 
@@ -37,7 +37,7 @@ const getEvolutionChain = async (url: string) => {
         const response = await api.get(relativeUrl);
         return response.data;
     } catch (error) {
-        console.error('Erro ao buscar a cadeia de evolução:', error);
+        console.error('Error when searching for evolution chain', error);
     }
 };
 

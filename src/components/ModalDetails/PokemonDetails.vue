@@ -47,17 +47,16 @@
                             </div>
                         </div>
                     </div>
+  <div v-if="evolutionChain.length > 0" class="evolution-container">
+        <ul class="evolution-list">
+            <li v-for="(evolution, index) in evolutionChain" :key="index" 
+                :class="['evolution-item', { 'middle-evolution': index === 2, 'first-evolution': index === 0, 'second-evolution': index === 1 }]">
+                <img :src="evolution.sprite" alt="Imagem de {{ evolution.name }}" class="evolution-image" />
+                <p class="evolution-name">{{ evolution.name }}</p>
+            </li>
+        </ul>
+    </div>
 
-                    <!-- Evolução -->
-                    <h3>Evolução</h3>
-                    <div v-if="evolutionChain.length > 0">
-                        <ul>
-                            <li v-for="(evolution, index) in evolutionChain" :key="index">
-                                <img :src="evolution.sprites.front_default" alt="Evolução" />
-                                <p>{{ evolution.name }}</p>
-                            </li>
-                        </ul>
-                    </div>
                 </div>
             </div>
         </div>
@@ -66,9 +65,10 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
-import { getPokemonById, getSpeciesById, getEvolutionChain, extractEvolutions  } from '../services/pokeAPI';
+import { getPokemonById, getSpeciesById, getEvolutionChain  } from '../services/pokeAPI';
 import ArrowLeft from '../../assets/icons/arrowLeft.vue';
 import { typeColors } from '../../types/typeColors';
+import {Evolution, EvolutionChain, Stat, Type } from '../../types/evolutionChain';
 
 const { show, name, id, sprites } = defineProps<{
     show: boolean;
@@ -80,31 +80,51 @@ const { show, name, id, sprites } = defineProps<{
 }>();
 
 const emits = defineEmits(['close']);
-
-const stats = ref<any[]>([]);
+const stats = ref<Stat[]>([]);
 const types = ref<string[]>([]);
-const evolutionChain = ref<any[]>([]);
+const evolutionChain = ref<Evolution[]>([]);
 
 const close = () => {
     emits('close');
 };
 
+const fetchEvolutionChain = async (chain: EvolutionChain): Promise<Evolution[]> => {
+
+    const getEvolutions = async (chain: EvolutionChain): Promise<Evolution[]> => {
+        const speciesId = chain.species.url.split('/')[6];
+        const pokemonResponse = await getPokemonById(speciesId);
+        const sprite = pokemonResponse.data.sprites.front_default;
+        const currentEvolution: Evolution = {
+            name: chain.species.name,
+            sprite,
+        };
+        if (chain.evolves_to.length > 0) {
+            const nextEvolutions = await getEvolutions(chain.evolves_to[0]);
+            return [currentEvolution, ...nextEvolutions];
+        } else {
+            return [currentEvolution];
+        }
+    };
+    return getEvolutions(chain);
+};
+
 const fetchDetails = async () => {
     try {
         const pokemonId = Number(id);
-
         const response = await getPokemonById(pokemonId);
         const pokemonData = response.data;
         stats.value = pokemonData.stats;
-        types.value = pokemonData.types.map((type: any) => type.type.name);
+        types.value = pokemonData.types.map((type: Type) => type.type.name);
+
         const speciesData = await getSpeciesById(pokemonId);
         const evolutionData = await getEvolutionChain(speciesData.evolution_chain.url);
-        
-        evolutionChain.value = extractEvolutions(evolutionData.chain);
+
+        evolutionChain.value = await fetchEvolutionChain(evolutionData.chain);
     } catch (error) {
-        console.error('Erro ao buscar detalhes do Pokémon:', error);
+        console.error('Error fetching Pokémon details:', error);
     }
 };
+
 
 onMounted(() => {
     fetchDetails();
@@ -248,12 +268,59 @@ span{
     width: 80px;
 }
 
-
 .base-status {
     font-size: 18px;
     margin-bottom: 30px;
     display: flex;
     justify-content: center;
 }
+.evolution-container {
+    display: flex;
+    justify-content: center;
+}
 
+.evolution-list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.evolution-item {
+    list-style: none;
+    text-align: center;
+    transition: transform 0.3s ease-in-out;
+}
+
+.first-evolution {
+    transform: scale(1); 
+    padding: 5px;
+}
+
+.second-evolution {
+    transform: scale(1.1); 
+    padding: 15px;
+}
+
+.middle-evolution {
+    transform: scale(1.3); 
+    z-index: 2;
+    padding: 10px;
+}
+
+.evolution-image {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+}
+
+.evolution-name {
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 8px;
+}
+
+.evolution-item:hover {
+    transform: scale(1.5);
+}
 </style>
