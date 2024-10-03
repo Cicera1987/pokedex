@@ -9,7 +9,4 @@ import PageStructure from '../PageStrutucture/Structure.vue'
 </script>
 
 <style scoped>
-h1 {
-  text-align: center;
-}
 </style>
