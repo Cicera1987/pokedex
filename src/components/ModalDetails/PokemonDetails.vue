@@ -77,7 +77,7 @@ import {
   getPokemonById,
   getSpeciesById,
   getEvolutionChain,
-} from '../services/pokeAPI'
+} from '../../services/pokeAPI'
 import ArrowLeft from '../../assets/icons/arrowLeft.vue'
 import { typeColors } from '../../types/typeColors'
 import {
