@@ -47,6 +47,7 @@ import { ref, watch } from 'vue'
 import { supportedLocales } from '../../i18n/constants'
 import { useFilteredPokemons } from '../../hooks/useFilteredPokemons'
 import { useTranslations } from '../../hooks/useTranslations'
+import { markRaw } from 'vue'
 
 const loading = ref(true)
 const error = ref<string | null>(null)
@@ -65,12 +66,12 @@ const toggleTheme = () => {
 
 const menuItems = ref([
   {
-    icon: FavoriteIcon,
+    icon:markRaw(FavoriteIcon),
     label: currentTranslation.value.favorites,
     onClick: () => { },
   },
   {
-    icon: isDarkMode.value ? lightModeIcon : darkModeIcon,
+    icon: markRaw(isDarkMode.value ? lightModeIcon : darkModeIcon),
     label: isDarkMode.value ? currentTranslation.value.lightMode : currentTranslation.value.darkMode,
     onClick: toggleTheme,
   },
