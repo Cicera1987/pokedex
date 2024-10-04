@@ -10,11 +10,8 @@
           <MenuIcon />
         </template>
         <template #language-selector>
-          <LanguageSelector
-            :currentLocale="currentLocale"
-            :supportedLocales="localesArray"
-            :changeLocale="changeLocale"
-          />
+          <LanguageSelector :currentLocale="currentLocale" :supportedLocales="localesArray"
+            :changeLocale="changeLocale" />
         </template>
       </PokedexMenu>
     </div>
@@ -22,43 +19,35 @@
       <div class="input-container">
         <div class="input-wrapper">
           <SearchIcon class="search-icon" />
-          <input
-            class="input-search"
-            :placeholder="currentTranslation.searchPlaceholder"
-            v-model="searchQuery"
-          />
+          <input class="input-search" :placeholder="currentTranslation.searchPlaceholder" v-model="searchQuery" />
         </div>
       </div>
     </div>
-    <PokemonList
-      :pokemons="pokemons"
-      :filteredPokemons="filteredPokemons"
-      :loading="loading"
-      :error="error"
-    />
+    <PokemonList :pokemons="pokemons" :filteredPokemons="filteredPokemons" :loading="loading" :error="error" />
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue'
-import PageTitle from '../PageTitle/PageTitle.vue'
-import PokedexMenu from '../pokedexMenu/Menu.vue'
-import PokedexIcon from '../../assets/icons/PokedexIcon.vue'
-import MenuIcon from '../../assets/icons/menuIcon.vue'
-import FavoriteIcon from '../../assets/icons/favorite.vue'
+import axios from 'axios'
 import darkModeIcon from '../../assets/icons/dark.vue'
-import lightModeIcon from '../../assets/icons/light.vue'
+import FavoriteIcon from '../../assets/icons/favorite.vue'
 import LanguageSelector from '../LanguageSelector/selector.vue'
-import { useTranslations } from '../../hooks/useTranslations'
-import { supportedLocales } from '../../i18n/constants'
+import lightModeIcon from '../../assets/icons/light.vue'
+import MenuIcon from '../../assets/icons/menuIcon.vue'
+import PageTitle from '../PageTitle/PageTitle.vue'
+import PokedexIcon from '../../assets/icons/PokedexIcon.vue'
+import PokedexMenu from '../pokedexMenu/Menu.vue'
+import PokemonList from '../PokemonList/List.vue'
 import SearchIcon from '../../assets/icons/search.vue'
 import { DetailedPokemon } from '../../types/endpoints'
-import { onMounted } from 'vue'
-import PokemonList from '../PokemonList/List.vue'
-import { Pokemon } from '../../types/pokemon'
-import { useFilteredPokemons } from '../../hooks/useFilteredPokemons'
-import axios from 'axios'
 import { getPokemonList, getPokemons } from '../services/pokeAPI'
+import { onMounted } from 'vue'
+import { Pokemon } from '../../types/pokemon'
+import { ref, watch } from 'vue'
+import { supportedLocales } from '../../i18n/constants'
+import { useFilteredPokemons } from '../../hooks/useFilteredPokemons'
+import { useTranslations } from '../../hooks/useTranslations'
+
 const loading = ref(true)
 const error = ref<string | null>(null)
 
@@ -78,7 +67,7 @@ const menuItems = ref([
   {
     icon: FavoriteIcon,
     label: 'Favoritos',
-    onClick: () => {},
+    onClick: () => { },
   },
   {
     icon: isDarkMode.value ? lightModeIcon : darkModeIcon,
@@ -133,6 +122,12 @@ watch(searchQuery, (newQuery) => {
 onMounted(() => fetchPokemons(''))
 </script>
 
+<style>
+body {
+  margin: 0;
+}
+</style>
+
 <style scoped>
 .page-structure {
   padding: 1rem;
@@ -142,12 +137,14 @@ onMounted(() => fetchPokemons(''))
   flex-direction: column;
   justify-content: space-between;
 }
+
 .structure {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
 }
+
 .input-search {
   display: flex;
   width: 100%;
@@ -185,6 +182,7 @@ onMounted(() => fetchPokemons(''))
     flex-direction: column;
     align-items: flex-start;
   }
+
   .input-search {
     padding: 8px 10px 8px 40px;
   }
@@ -196,7 +194,7 @@ onMounted(() => fetchPokemons(''))
   }
 
   .input-search {
-    font-size: 16px; 
+    font-size: 16px;
   }
 }
 </style>

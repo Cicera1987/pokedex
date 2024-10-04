@@ -14,7 +14,7 @@
         />
         <div class="pokemon-info">
           <p>
-            #{{ formatId(pokemon.id) }}<span>{{ pokemon.name }}</span>
+            {{ formatId(pokemon.id) }}<span>{{ pokemon.name }}</span>
           </p>
         </div>
       </li>

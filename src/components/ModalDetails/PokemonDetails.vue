@@ -1,18 +1,14 @@
 <template>
   <div v-if="show" class="modal-backdrop" @click="close">
-    <div
-      class="modal-outer"
-      :style="{
-        backgroundColor: types.length > 0 ? typeColors[types[0]] : 'gray',
-      }"
-      @click.stop
-    >
+    <div class="modal-outer" :style="{
+      backgroundColor: types.length > 0 ? typeColors[types[0]]?.bg : 'gray',
+    }" @click.stop>
       <div class="header">
         <button @click="close" class="close-btn">
           <ArrowLeft />
         </button>
         <h2>{{ name }}</h2>
-        <p>#{{ id }}</p>
+        <p>{{ id }}</p>
       </div>
 
       <div class="image-container">
@@ -21,29 +17,19 @@
 
       <div class="modal">
         <div :class="['types-container', { multiple: types.length > 1 }]">
-          <div
-            v-for="(type, index) in types"
-            :key="index"
-            class="type-item"
-            :style="{ backgroundColor: typeColors[type] }"
-          >
+          <div v-for="(type, index) in types" :key="index" class="type-item"
+            :style="{ backgroundColor: typeColors[type]?.bg }">
             {{ type }}
           </div>
         </div>
 
         <div class="modal-content">
           <div>
-            <div
-              class="base-status"
-              :style="{ color: typeColors[types[0]] || 'gray' }"
-            >
+            <div class="base-status" :style="{ color: typeColors[types[0]]?.text || 'gray' }">
               Base Status
             </div>
             <div v-for="(stat, index) in stats" :key="index" class="stat-item">
-              <div
-                class="stat-name"
-                :style="{ color: typeColors[types[0]] || 'gray' }"
-              >
+              <div class="stat-name" :style="{ color: typeColors[types[0]]?.text || 'gray' }">
                 {{ stat.stat.name }}:
                 <span class="base-stat">
                   {{ stat.base_stat }}
@@ -51,45 +37,30 @@
               </div>
 
               <div class="progress-bar">
-                <div
-                  class="progress"
-                  :style="{
-                    width: `${Math.min(stat.base_stat, 100)}%`,
-                    background: typeColors[types[0]] || 'gray',
-                    borderRadius: stat.base_stat >= 100 ? '8px' : '8px 0 0 8px',
-                  }"
-                ></div>
-                <div
-                  v-if="stat.base_stat < 100"
-                  class="progress-opaco"
-                  :style="{
-                    width: `${100 - Math.min(stat.base_stat, 100)}%`,
-                    background: 'rgba(0, 0, 0, 0.2)',
-                    borderRadius: '0 8px 8px 0',
-                  }"
-                ></div>
+                <div class="progress" :style="{
+                  width: `${Math.min(stat.base_stat, 100)}%`,
+                  background: typeColors[types[0]]?.bg || 'gray',
+                  borderRadius: stat.base_stat >= 100 ? '8px' : '8px 0 0 8px',
+                }"></div>
+                <div v-if="stat.base_stat < 100" class="progress-opaco" :style="{
+                  width: `${100 - Math.min(stat.base_stat, 100)}%`,
+                  background: 'rgba(0, 0, 0, 0.2)',
+                  borderRadius: '0 8px 8px 0',
+                }"></div>
               </div>
             </div>
           </div>
           <div v-if="evolutionChain.length > 0" class="evolution-container">
             <ul class="evolution-list">
-              <li
-                v-for="(evolution, index) in evolutionChain"
-                :key="index"
-                :class="[
-                  'evolution-item',
-                  {
-                    'middle-evolution': index === 2,
-                    'first-evolution': index === 0,
-                    'second-evolution': index === 1,
-                  },
-                ]"
-              >
-                <img
-                  :src="evolution.sprite"
-                  alt="Imagem de {{ evolution.name }}"
-                  class="evolution-image"
-                />
+              <li v-for="(evolution, index) in evolutionChain" :key="index" :class="[
+                'evolution-item',
+                {
+                  'middle-evolution': index === 2,
+                  'first-evolution': index === 0,
+                  'second-evolution': index === 1,
+                },
+              ]">
+                <img :src="evolution.sprite" alt="Imagem de {{ evolution.name }}" class="evolution-image" />
                 <p class="evolution-name">{{ evolution.name }}</p>
               </li>
             </ul>
@@ -234,8 +205,9 @@ h2 {
 }
 
 p {
-  color: #8d8383;
+  color: rgba(0, 0, 0, 0.7);
 }
+
 .stat-name {
   font-weight: bold;
   font-size: 16px;
@@ -244,9 +216,11 @@ p {
   justify-content: space-between;
   width: 280px;
 }
+
 span {
   color: #8d8383;
 }
+
 .image-container {
   display: flex;
   justify-content: center;
@@ -329,6 +303,7 @@ span {
   display: flex;
   justify-content: center;
 }
+
 .evolution-container {
   display: flex;
   justify-content: center;
