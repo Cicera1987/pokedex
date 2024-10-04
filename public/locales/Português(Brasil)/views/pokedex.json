@@ -8,7 +8,7 @@
     "lightMode": "Modo Claro",
     "basestatus": "Status básicos",
     "stats": {
-        "hp": "HP",
+        "hp": "Pontos de Vida",
         "attack": "Ataque",
         "defense": "Defesa",
         "special_attack": "Ataque Especial",

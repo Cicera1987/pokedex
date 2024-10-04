@@ -8,7 +8,7 @@
     "lightMode": "Light Mode",
     "basestatus": "Base status",
     "stats": {
-        "hp": "HP",
+        "hp": "Life Points",
         "attack": "Attack",
         "defense": "Defense",
         "special_attack": "Special Attack",
