@@ -2,7 +2,19 @@
   "pokedex": {
     "pokemonList": "Lista de Pokémon",
     "title": "Pokédex",
-    "searchPlaceholder": "Buscar Pokémon"
+    "searchPlaceholder": "Buscar Pokémon",
+    "favorites": "Favoritos",
+    "darkMode": "Modo Escuro",
+    "lightMode": "Modo Claro",
+    "basestatus": "Status básicos",
+    "stats": {
+        "hp": "HP",
+        "attack": "Ataque",
+        "defense": "Defesa",
+        "special_attack": "Ataque Especial",
+        "special_defense": "Defesa Especial",
+        "speed": "Velocidade"
+      }
   },
   "error": "Erro ao carregar Pokémons"
 }

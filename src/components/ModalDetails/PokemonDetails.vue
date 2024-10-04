@@ -26,11 +26,11 @@
         <div class="modal-content">
           <div>
             <div class="base-status" :style="{ color: typeColors[types[0]]?.text || 'gray' }">
-              Base Status
+             {{ currentTranslation.basestatus }}
             </div>
             <div v-for="(stat, index) in stats" :key="index" class="stat-item">
               <div class="stat-name" :style="{ color: typeColors[types[0]]?.text || 'gray' }">
-                {{ stat.stat.name }}:
+                 {{ currentTranslation.translateStatName?.(stat.stat.name)}}
                 <span class="base-stat">
                   {{ stat.base_stat }}
                 </span>
@@ -86,6 +86,9 @@ import {
   Stat,
   Type,
 } from '../../types/evolutionChain'
+import { useTranslations } from '../../hooks/useTranslations'
+
+const { currentTranslation } = useTranslations()
 
 const { show, name, id, sprites } = defineProps<{
   show: boolean

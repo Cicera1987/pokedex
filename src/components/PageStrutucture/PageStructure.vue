@@ -66,20 +66,26 @@ const toggleTheme = () => {
 const menuItems = ref([
   {
     icon: FavoriteIcon,
-    label: 'Favoritos',
+    label: currentTranslation.value.favorites,
     onClick: () => { },
   },
   {
     icon: isDarkMode.value ? lightModeIcon : darkModeIcon,
-    label: isDarkMode.value ? 'Modo Claro' : 'Modo Escuro',
+    label: isDarkMode.value ? currentTranslation.value.lightMode : currentTranslation.value.darkMode,
     onClick: toggleTheme,
   },
 ])
 
+watch(currentTranslation, () => {
+  menuItems.value[0].label = currentTranslation.value.favorites;
+  menuItems.value[1].label = isDarkMode.value
+    ? currentTranslation.value.lightMode
+    : currentTranslation.value.darkMode;
+});
+
 watch(isDarkMode, (newValue) => {
-  menuItems.value[1].icon = newValue ? lightModeIcon : darkModeIcon
-  menuItems.value[1].label = newValue ? 'Modo Claro' : 'Modo Escuro'
-})
+  menuItems.value[1].icon = newValue ? lightModeIcon : darkModeIcon;
+});
 
 const fetchPokemons = async (query: string = '') => {
   loading.value = true
@@ -97,7 +103,7 @@ const fetchPokemons = async (query: string = '') => {
       pokemonsData.map(async (pokemon: DetailedPokemon) => {
         const details = pokemon.sprites
           ? pokemon
-          : await axios.get(pokemon.url || '').then((res) => res.data)
+          : await axios.get(pokemon.url).then((res) => res.data)
 
         return {
           id: String(details.id).padStart(3, '0'),
