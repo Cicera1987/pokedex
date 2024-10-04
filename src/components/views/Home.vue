@@ -5,7 +5,7 @@
 </template>
 
 <script setup lang="ts">
-import PageStructure from '../PageStrutucture/Structure.vue'
+import PageStructure from '../PageStrutucture/PageStructure.vue'
 </script>
 
 <style scoped>
