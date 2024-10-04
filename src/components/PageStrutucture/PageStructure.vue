@@ -24,6 +24,15 @@
       </div>
     </div>
     <PokemonList :pokemons="pokemons" :filteredPokemons="filteredPokemons" :loading="loading" :error="error" />
+    <PokemonsFavorites
+    v-if="showFavoritesModal"
+    :isOpen="showFavoritesModal"
+    :title="currentTranslation.favorites"
+    :pokemons="formattedPokemons"
+    :onClose="handleCloseModal" 
+    :onAdd="addToFavorites"
+  />
+
   </div>
 </template>
 
@@ -39,9 +48,10 @@ import PokedexIcon from '../../assets/icons/PokedexIcon.vue'
 import PokedexMenu from '../pokedexMenu/PokedexMenu.vue'
 import PokemonList from '../PokemonList/PokemonList.vue'
 import SearchIcon from '../../assets/icons/search.vue'
+import PokemonsFavorites from '../Modals/PokemonsFavorites.vue'
 import { DetailedPokemon } from '../../types/endpoints'
 import { getPokemonList, getPokemons } from '../../services/pokeAPI'
-import { onMounted } from 'vue'
+import { computed, onMounted } from 'vue'
 import { Pokemon } from '../../types/pokemon'
 import { ref, watch } from 'vue'
 import { supportedLocales } from '../../i18n/constants'
@@ -63,12 +73,29 @@ const { searchQuery, filteredPokemons } = useFilteredPokemons(pokemons.value)
 const toggleTheme = () => {
   isDarkMode.value = !isDarkMode.value
 }
+const showFavoritesModal = ref(false)
+const handleCloseModal = () => {
+  showFavoritesModal.value = false;
+}
+
+const addToFavorites = (pokemonId: string) => {
+  return pokemonId
+}
+
+const formattedPokemons = computed(() => {
+  return pokemons.value.map(pokemon => ({
+    id: String(pokemon.id),
+    name: pokemon.name
+  }))
+})
 
 const menuItems = ref([
   {
     icon:markRaw(FavoriteIcon),
     label: currentTranslation.value.favorites,
-    onClick: () => { },
+     onClick: () => {
+      showFavoritesModal.value = true // Abre o modal ao clicar
+    },
   },
   {
     icon: markRaw(isDarkMode.value ? lightModeIcon : darkModeIcon),

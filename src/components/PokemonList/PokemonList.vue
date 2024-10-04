@@ -44,7 +44,7 @@ import { defineProps, ref, watch } from 'vue'
 import Pagination from '../Pagination/Pagination.vue'
 import { Pokemon } from '../../types/pokemon'
 import { useFilteredPokemons } from '../../hooks/useFilteredPokemons'
-import PokemonDetails from '../ModalDetails/PokemonDetails.vue'
+import PokemonDetails from '../Modals/PokemonDetails.vue'
 
 const pokemons = ref<Pokemon[]>([])
 
