@@ -1,53 +1,59 @@
+Aqui está uma versão revisada e aprimorada do seu README:
+
+---
+
 # Pokédex - Teste Técnico
 
 ## Sobre o Projeto
 
-Este projeto foi desenvolvido como parte de um teste técnico com o objetivo de criar uma aplicação web que funcione como uma **Pokédex**, utilizando a **PokeAPI**. O foco principal é permitir a busca, listagem e visualização de detalhes dos Pokémon, além de fornecer uma interface amigável e intuitiva.
+Este projeto foi desenvolvido como parte de um teste técnico, com o objetivo de criar uma aplicação web que funcione como uma **Pokédex**, utilizando a **PokeAPI**. A aplicação permite buscar, listar e visualizar detalhes dos Pokémon de forma responsiva e amigável.
 
 ## Tecnologias Utilizadas
 
 - **Vue.js 3** com **Composition API**
 - **Vite** como bundler
 - **TypeScript** para tipagem estática
-- **PokeAPI** para o consumo de dados dos Pokémon
-- **CSS** para a estilização
-- **Axios** para realizar requisições HTTP
+- **PokeAPI** para consumo de dados dos Pokémon
+- **CSS** para estilização
+- **Axios** para requisições HTTP
 - **i18n** para internacionalização
-- **Prettier** e **ESLint** para garantir o formato e qualidade do código
+- **Prettier** e **ESLint** para garantir a qualidade do código
 
 ## Funcionalidades Implementadas
 
 ### 1. Listagem de Pokémon
 
 - Exibe uma lista paginada de Pokémon, mostrando suas **imagens**, **nomes** e **números**.
-- Suporta **paginação** com controle do número de Pokémon exibidos por página.
+- Suporta **paginação**, permitindo o controle do número de Pokémon exibidos por página.
 
 ### 2. Detalhes do Pokémon
 
-- Ao clicar em um Pokémon da lista, um modal exibe:
+- Modal de detalhes que exibe:
   - **Estatísticas**: HP, Attack, Defense, Special Attack, Special Defense e Speed.
-  - **Tipos de Pokémon**: Exibe os tipos com cores correspondentes.
-  - **Cadeia de Evolução**: Exibe a cadeia de evolução com imagens e nomes.
+  - **Tipos de Pokémon** com cores correspondentes.
+  - **Cadeia de Evolução** com imagens e nomes.
 
 ### 3. Busca e Filtro
 
-- Implementada busca por **nome** ou **número** de Pokémon.
+- Busca implementada por **nome** ou **número** de Pokémon.
 
 ### 4. Responsividade
 
-- A aplicação é **responsiva** e adaptada para diferentes dispositivos (desktop e mobile).
+- Design **responsivo**, adaptado para diferentes dispositivos, como desktop e mobile.
 
 ### 5. Internacionalização (i18n)
 
-- Suporte a múltiplos idiomas, permitindo a alternância entre diferentes línguas.
+- Suporte a múltiplos idiomas com alternância entre línguas.
 
 ### 6. Configurações de Prettier e ESLint
 
-- Configurações para garantir o formato consistente do código e boas práticas de desenvolvimento.
+- Configurações para garantir um código consistente e boas práticas de desenvolvimento.
 
 ### 7. Modo Escuro/Claro (pendente)
 
-- Implementação de alternância entre temas escuro e claro.
+- A implementação do modo escuro/claro foi iniciada, mas ainda não finalizada. A funcionalidade está planejada para ser concluída em futuras atualizações.
+
+> **Decisão**: Dado o escopo do teste, a funcionalidade de modo escuro/claro foi parcialmente implementada, priorizando outras áreas funcionais da Pokédex. A finalização será feita para atender às melhores práticas de acessibilidade e experiência do usuário.
 
 ## Como Executar o Projeto
 
@@ -74,32 +80,37 @@ Este projeto foi desenvolvido como parte de um teste técnico com o objetivo de 
 
 ## Estrutura do Projeto
 
-```
+```plaintext
 ├── public
 ├── src
 │   ├── assets
 │   ├── components
 │   ├── hooks
+│   ├── i18n
+│   ├── router
+│   ├── services
 │   ├── views
 │   ├── App.vue
-│   ├── main.ts
-│   └── router.ts
+│   └── main.ts
 ├── package.json
 └── README.md
 ```
+
 ## Variáveis de Ambiente
 
-Para a configuração do projeto, você deve criar um arquivo `.env` na raiz do projeto com as seguintes variáveis:
+Certifique-se de criar um arquivo `.env` na raiz do projeto com as seguintes variáveis:
 
+```env
 VITE_API_URL=https://pokeapi.co/api/v2/
 VITE_OTHER_VARIABLE=some_value
+```
 
 ## Melhorias Futuras
 
-- **Implementar filtro por tipos de Pokémon**.
-- **Finalizar a implementação do modo Dark/Light**.
-- **Adicionar testes automatizados com Jest ou Vitest**.
-- **Otimização do desempenho da aplicação**.
+- **Filtro por tipos de Pokémon**: Implementar um sistema de filtro baseado nos tipos de Pokémon.
+- **Finalizar o modo Dark/Light**: Completar a alternância entre temas escuro e claro, garantindo uma experiência de uso otimizada.
+- **Testes Automatizados**: Implementar testes com **Jest** ou **Vitest** para garantir a qualidade da aplicação.
+- **Otimização de Desempenho**: Analisar e otimizar áreas específicas do projeto para garantir uma performance ainda melhor.
 
 ## Deploy
 
@@ -107,4 +118,4 @@ O deploy da aplicação está disponível no [Netlify](https://pokedchallenge.ne
 
 ## Considerações Finais
 
-Este projeto foi uma excelente oportunidade para explorar Vue.js 3 com Composition API, TypeScript, e implementar um design responsivo com foco em UX. Além disso, foi configurado suporte para i18n e boas práticas com Prettier e ESLint para manter a qualidade do código.
+Este projeto foi uma excelente oportunidade para explorar o uso de Vue.js 3 com Composition API, TypeScript e implementar um design responsivo com foco em UX. Além disso, foi configurado suporte para i18n e implementadas boas práticas com Prettier e ESLint, visando a qualidade e manutenção do código.
