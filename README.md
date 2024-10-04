@@ -1,7 +1,3 @@
-Aqui está uma versão revisada e aprimorada do seu README:
-
----
-
 # Pokédex - Teste Técnico
 
 ## Sobre o Projeto
