@@ -112,6 +112,9 @@ VITE_OTHER_VARIABLE=some_value
 
 O deploy da aplicação está disponível no [Netlify](https://pokedchallenge.netlify.app/).
 
+## Apresentação
+Vídeo da aprersentação do projeto no [YouTube](https://youtu.be/YG_WWhtCo7E)
+
 ## Considerações Finais
 
 Este projeto foi uma excelente oportunidade para explorar o uso de Vue.js 3 com Composition API, TypeScript e implementar um design responsivo com foco em UX. Além disso, foi configurado suporte para i18n e implementadas boas práticas com Prettier e ESLint, visando a qualidade e manutenção do código.
