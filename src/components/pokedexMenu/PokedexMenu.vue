@@ -60,7 +60,7 @@ const handleItemClick = (item: MenuItem) => {
 }
 
 .menu-options {
-  min-width: 150px;
+  min-width: 178px;
   position: absolute;
   z-index: 1;
   background: white;
@@ -85,5 +85,12 @@ const handleItemClick = (item: MenuItem) => {
 .menu-item:hover {
   background-color: #f0f0f0;
   border-radius: 5px;
+}
+
+@media (max-width: 768px) {
+  .menu-options {
+    width: 100%;
+    left: 0;
+  }
 }
 </style>

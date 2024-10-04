@@ -57,7 +57,7 @@ const changeLocale = () => {
 
 .language-select {
   flex: 1;
-  padding: 0.5rem 2.5rem 0.5rem 2rem;
+  padding: 0.5rem 0.5rem 0.5rem 2rem;
   outline: none;
   border: 1px solid #CCCCCC;
   background-color: white;
@@ -85,6 +85,6 @@ const changeLocale = () => {
   }
 
   .language-select {
-    padding: 0.5rem;
+    padding: 0.5rem 0.5rem 0.5rem 2rem;
   }
 }</style>
